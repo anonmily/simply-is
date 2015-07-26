@@ -39,7 +39,7 @@
 					try{
 						if( this.is_object(JSON.parse(x)) || this.is_array(JSON.parse(x)) ){ return true; }
 					}catch(e){
-						log.error(e.name + ": " + e.message);
+						log.warn(e.name + ": " + e.message);
 						return false;
 					}
 				}
