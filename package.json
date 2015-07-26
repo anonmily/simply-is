@@ -1,7 +1,7 @@
 {
   "name": "simply-is",
-  "version": "1.0.3",
-  "description": "Expressive library for type checking",
+  "version": "1.0.4",
+  "description": "An expressive type testing library",
   "repository": {
     "type": "git",
     "url": "https://github.com/anonmily/simply-is"
