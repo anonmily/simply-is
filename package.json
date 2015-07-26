@@ -1,5 +1,5 @@
 {
-  "name": "is-type",
+  "name": "is-util",
   "version": "1.0.0",
   "description": "Expressive library for type checking",
   "repository": {

@@ -107,6 +107,16 @@ describe('is.a and is.an',function(){
 	it('array', 				function(done){		is.an.array([1,2,3])	.should.equal(true);	done();		});
 });
 
+// Utility
+describe('is.empty',function(){
+	it('{}', 		function(done){		is.empty({})			.should.equal(true);		done();		});
+	it('[]', 		function(done){		is.empty([])			.should.equal(true);		done();		});
+	it('0', 		function(done){		is.empty(0)				.should.equal(true);		done();		});
+	it('""', 		function(done){		is.empty("")			.should.equal(true);		done();		});
+	it('null', 		function(done){		is.empty(null)			.should.equal(true);		done();		});
+	it('undefined', function(done){		is.empty(undefined)		.should.equal(true);		done();		});
+});
+
 // Number-specific
 describe('is.nan',function(){
 	it('NaN', 					function(done){		is.nan(NaN)				.should.equal(true); 	done();		});

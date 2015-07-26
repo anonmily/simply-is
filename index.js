@@ -9,9 +9,6 @@
 		var check = {
 			if: function(x,testfor,not){ 
 				if(not){
-					//log(testfor);
-					//log('NOT | ' + "this['is_"+testfor+"']("+x+"): " + this['is_'+testfor](x) ); 
-					//log('      ' + "!this['is_"+testfor+"']("+x+"): " + !this['is_'+testfor](x) ); 
 					return !this['is_'+testfor](x);
 				}else{
 					return this['is_'+testfor](x);
@@ -49,18 +46,17 @@
 
 		// Public
 		var is = {};
-		is.empty = function(obj){
-			if(typeof obj == 'undefined'){ return true; }
-			if(obj === null){ return true; }
-			if(obj.constructor == String){ return obj === ""; }
-			if(obj.constructor == Array){ return obj.length === 0; }
-			if(obj.constructor == Object){
-				for(var prop in obj){
-					if(obj.hasOwnProperty(prop)){ return false; }
+		is.empty = function(x){
+			if( this.undefined(x) || this.null(x)){ return true; }
+			if( this.string(x) ){ return x === ""; }
+			if( this.array(x) ){ return x.length === 0; }
+			if( this.object(x) ){
+				for(var prop in x){
+					if(x.hasOwnProperty(prop)){ return false; }
 			    }
 			    return true;
 			}
-			return !obj;
+			return !x;
 		};
 		is.array = function(x)		{ 	return check.if(x,'array', this.is_not);		};
 		is.object= function(x)		{ 	return check.if(x,'object', this.is_not);		};
