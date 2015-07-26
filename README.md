@@ -1,4 +1,8 @@
 An expressive type testing utility library for Node.
+https://github.com/anonmily/simply-is
+
+## Install
+    npm install simply-is
 
 ## Examples
 	is.object({}); 			//true
