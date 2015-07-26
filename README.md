@@ -6,14 +6,18 @@ An expressive type testing utility library for Node.
 
 [NPM:		https://www.npmjs.com/package/simply-is](https://www.npmjs.com/package/simply-is)
 
-## Install
+## Installation
     npm install simply-is
 
 ## Examples
 	is.object({}); 			//true
 	is.a.string('hello')	//chaining
 	is.not.an.array({})		//negation
+	
 	is(3).even()			//alternative syntax
+	is('hello').a.string()
+	is('[{"key":"somevalue"}]').json()
+
 
 ## Basic Tests
 	is.object 		({})
