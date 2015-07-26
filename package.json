@@ -18,7 +18,7 @@
     "typing"
   ],
   "author": "Michelle Liu <michelle@michelleliu.io> (http://michelleliu.io)",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "colors": "^1.1.2",
     "lodash": "^3.10.0"
