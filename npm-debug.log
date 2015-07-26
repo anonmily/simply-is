@@ -1,0 +1,97 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node', '/usr/local/bin/npm', 'publish' ]
+2 info using npm@2.10.1
+3 info using node@v0.12.5
+4 verbose publish [ '.' ]
+5 silly cache add args [ '.', null ]
+6 verbose cache add spec .
+7 silly cache add parsed spec { raw: '.',
+7 silly cache add   scope: null,
+7 silly cache add   name: null,
+7 silly cache add   rawSpec: '.',
+7 silly cache add   spec: '/Users/michelleliu/Projects/node/simply-is',
+7 silly cache add   type: 'directory' }
+8 verbose addLocalDirectory /Users/michelleliu/.npm/simply-is/1.0.1/package.tgz not in flight; packing
+9 verbose tar pack [ '/Users/michelleliu/.npm/simply-is/1.0.1/package.tgz',
+9 verbose tar pack   '/Users/michelleliu/Projects/node/simply-is' ]
+10 verbose tarball /Users/michelleliu/.npm/simply-is/1.0.1/package.tgz
+11 verbose folder /Users/michelleliu/Projects/node/simply-is
+12 info prepublish simply-is@1.0.1
+13 verbose addLocalTarball adding from inside cache /Users/michelleliu/.npm/simply-is/1.0.1/package.tgz
+14 silly cache afterAdd simply-is@1.0.1
+15 verbose afterAdd /Users/michelleliu/.npm/simply-is/1.0.1/package/package.json not in flight; writing
+16 verbose afterAdd /Users/michelleliu/.npm/simply-is/1.0.1/package/package.json written
+17 silly publish { name: 'simply-is',
+17 silly publish   version: '1.0.1',
+17 silly publish   description: 'Expressive library for type checking',
+17 silly publish   repository:
+17 silly publish    { type: 'git',
+17 silly publish      url: 'git+https://github.com/anonmily/simply-is.git' },
+17 silly publish   main: 'index.js',
+17 silly publish   scripts: { test: 'mocha --reporter nyan test' },
+17 silly publish   keywords: [ 'type', 'utility', 'check', 'boolean', 'typing' ],
+17 silly publish   author:
+17 silly publish    { name: 'Michelle Liu',
+17 silly publish      email: 'michelle@michelleliu.io',
+17 silly publish      url: 'http://michelleliu.io' },
+17 silly publish   license: 'MIT',
+17 silly publish   dependencies: { colors: '^1.1.2', lodash: '^3.10.0' },
+17 silly publish   devDependencies: { mocha: '^2.2.5', should: '^7.0.2' },
+17 silly publish   readme: 'An expressive Node type testing library.\n\n## Examples\n    is.object({}); \t\t//true\n    is.a.string(\'hello\')\t//true\n    is.not.an.array({})\t//true\n\n## Basic Tests\n    is.object\t({})\n    is.array\t([1,2,3])\n    is.string\t(\'hello world\')\n    is.number\t(1)\n    is.null\t\t(Null)\n    is.undefined\t(undefined)\n    is.boolean\t(1==1)\n    is.json\t\t(\'[{"key":"somevalue"}]\')\n\n## Utility\n    is.empty\t({}) //true for {}, [], 0, "", null, undefined\n\n## Numbers\n    is.number\t(1)\n    is.nan\t\t(NaN)\n    is.infinite\t(Infinity)\n    is.even\t\t(2)\n    is.odd\t\t(3)\n\n# Booleans\n    is.true\t\t(1==1)\n    is.false\t(1==2)\n\n',
+17 silly publish   readmeFilename: 'README.md',
+17 silly publish   gitHead: '3df5e9c711b63d758ce0bc6503b8c60ac66a1e3d',
+17 silly publish   bugs: { url: 'https://github.com/anonmily/simply-is/issues' },
+17 silly publish   homepage: 'https://github.com/anonmily/simply-is#readme',
+17 silly publish   _id: 'simply-is@1.0.1',
+17 silly publish   _shasum: 'c2c83ca3b749d0081f67f51680e3117d50d7b291',
+17 silly publish   _from: '.' }
+18 verbose getPublishConfig undefined
+19 silly mapToRegistry name simply-is
+20 silly mapToRegistry using default registry
+21 silly mapToRegistry registry https://registry.npmjs.org/
+22 silly mapToRegistry uri https://registry.npmjs.org/simply-is
+23 verbose publish registryBase https://registry.npmjs.org/
+24 silly publish uploading /Users/michelleliu/.npm/simply-is/1.0.1/package.tgz
+25 verbose request uri https://registry.npmjs.org/simply-is
+26 verbose request sending authorization for write operation
+27 info attempt registry request try #1 at 8:03:08 PM
+28 verbose request using bearer token for auth
+29 verbose request id 9c083dbe86de2647
+30 http request PUT https://registry.npmjs.org/simply-is
+31 http 403 https://registry.npmjs.org/simply-is
+32 verbose headers { 'content-type': 'application/json',
+32 verbose headers   'cache-control': 'max-age=60',
+32 verbose headers   'content-length': '95',
+32 verbose headers   'accept-ranges': 'bytes',
+32 verbose headers   date: 'Sun, 26 Jul 2015 03:03:09 GMT',
+32 verbose headers   via: '1.1 varnish',
+32 verbose headers   connection: 'keep-alive',
+32 verbose headers   'x-served-by': 'cache-sjc3128-SJC',
+32 verbose headers   'x-cache': 'MISS',
+32 verbose headers   'x-cache-hits': '0',
+32 verbose headers   'x-timer': 'S1437879789.053969,VS0,VE883' }
+33 verbose request invalidating /Users/michelleliu/.npm/registry.npmjs.org/simply-is on PUT
+34 error publish Failed PUT 403
+35 verbose stack Error: "You cannot publish over the previously published version 1.0.1." : simply-is
+35 verbose stack     at CachingRegistryClient.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:247:14)
+35 verbose stack     at Request._callback (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:170:14)
+35 verbose stack     at Request.self.callback (/usr/local/lib/node_modules/npm/node_modules/request/request.js:368:22)
+35 verbose stack     at Request.emit (events.js:110:17)
+35 verbose stack     at Request.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1219:14)
+35 verbose stack     at Request.emit (events.js:129:20)
+35 verbose stack     at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1167:12)
+35 verbose stack     at IncomingMessage.emit (events.js:129:20)
+35 verbose stack     at _stream_readable.js:908:16
+35 verbose stack     at process._tickCallback (node.js:355:11)
+36 verbose statusCode 403
+37 verbose pkgid simply-is
+38 verbose cwd /Users/michelleliu/Projects/node/simply-is
+39 error Darwin 14.3.0
+40 error argv "node" "/usr/local/bin/npm" "publish"
+41 error node v0.12.5
+42 error npm  v2.10.1
+43 error code E403
+44 error "You cannot publish over the previously published version 1.0.1." : simply-is
+45 error If you need help, you may report this error at:
+45 error     <https://github.com/npm/npm/issues>
+46 verbose exit [ 1, true ]

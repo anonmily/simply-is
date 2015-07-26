@@ -1,10 +1,10 @@
 {
-  "name": "is-util",
-  "version": "1.0.0",
+  "name": "simply-is",
+  "version": "1.0.2",
   "description": "Expressive library for type checking",
   "repository": {
     "type": "git",
-    "url": "https://github.com/anonmily/node-is"
+    "url": "https://github.com/anonmily/simply-is"
   },
   "main": "index.js",
   "scripts": {
