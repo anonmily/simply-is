@@ -26,6 +26,7 @@
 		var obj = infolog;
 		obj.info = infolog;
 		obj.warn = warnlog;
+		obj.warning = obj.warn;
 		obj.error = errorlog;
 		obj.success= successlog;
 

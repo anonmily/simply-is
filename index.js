@@ -30,6 +30,7 @@
 
 			is_null: function(x)	{	return x === null;					},
 			is_undefined: function(x){	return typeof x === 'undefined';	},
+			is_defined: function(x) { 	return !is_undefined(x); 			},
 
 			is_json: function(x)	{
 				if(this.is_string(x)){
@@ -76,10 +77,16 @@
 
 		/* 
 		 * The exported library can be both:
-		 *  (1) A function that returns an IS object that has methods that call itself
-		 *			is.number --> function(x){...}				// original is object
-		 *			is.number --> function(){ is.number(x) }	// form returned from function
-		 *  (2) An is object (properties are added to the function)
+		 *  (1) A function that returns an IS object with methods that call itself with the given value
+		 *
+		 *			is(3).number();								// example usage
+		 *
+		 *			is.number --> function(x){...}				// is
+		 *			is.number --> function(){ is.number(x) }	// form of is returned by calling the function
+		 *
+		 *  (2) An is 'object' (properties are added to the function)
+		 *			is.number(3);
+		 *
 		*/
 		var isfunc = function(x){
 			var newobj = {};
