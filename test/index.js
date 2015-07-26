@@ -10,6 +10,14 @@ describe('is.object',function(){
 	it('boolean', 	function(done){		is.object(false)		.should.equal(false); 	done();		});
 	it('null', 		function(done){		is.object(null)			.should.equal(false);	done();		});
 	it('undefined', function(done){		is.object(undefined)	.should.equal(false); 	done();		});
+
+	it('is(object).an.object', 		function(done){	 	is({}).an.object()			.should.equal(true);	done();		});
+	it('is(array).an.object', 		function(done){		is([1,2,3]).an.object()		.should.equal(false); 	done();		});
+	it('is(string).an.object', 		function(done){		is('hi').an.object()		.should.equal(false);	done();		});
+	it('is(number).an.object', 		function(done){		is(456).an.object()			.should.equal(false); 	done();		});
+	it('is(boolean).an.object', 	function(done){		is(false).an.object()		.should.equal(false); 	done();		});
+	it('is(null).an.object', 		function(done){		is(null).an.object()		.should.equal(false);	done();		});
+	it('is(undefined).an.object', 	function(done){		is(undefined).an.object()	.should.equal(false); 	done();		});
 });
 describe('is.array',function(){
 	it('array', 	function(done){		is.array([1,2,3])		.should.equal(true); 	done();		});
@@ -132,8 +140,10 @@ describe('is.even',function(){
 	it('3 is not even', 		function(done){		is.even(3)				.should.equal(false); 	done();		});
 	it('NaN is not even', 		function(done){		is.even(NaN)			.should.equal(false); 	done();		});
 	it('Infinity is not even', 	function(done){		is.even(Infinity)		.should.equal(false); 	done();		});
-});
 
+	it('is(3).even()', 			function(done){		is(3).even()			.should.equal(false); 	done();		});
+	it('is(4).even()', 			function(done){		is(4).even()			.should.equal(true); 	done();		});
+});
 // Booleans
 describe('is.true',function(){
 	it('true is true', 			function(done){		is.true(true)			.should.equal(true); 	done();		});

@@ -26,6 +26,7 @@ An expressive type testing utility library for Node.
     is.odd		(3)
 
 ## Booleans
+    is.boolean  (true)
     is.true		(1==1)
     is.false	(1==2)
 

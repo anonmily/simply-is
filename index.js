@@ -20,7 +20,7 @@
 
 			is_number: function(x)	{ 	return !this.is_null(x) && !this.is_undefined(x) && x.constructor === Number; 		},
 			is_even: function(x)	{ 	return this.is_number(x) && !this.is_infinite(x) && !this.is_nan(x) && x % 2 === 0;	},
-			is_odd: function(x)		{ 	return this.is_number(x) && !this.is_infinite(x) && !this.is_nan(x) && x % 2 !== 0; 	},
+			is_odd: function(x)		{ 	return this.is_number(x) && !this.is_infinite(x) && !this.is_nan(x) && x % 2 !== 0; },
 			is_infinite: function(x){	return this.is_number(x) && (x === Infinity || x === -Infinity); 					},
 			is_nan: function(x)		{	return this.is_number(x) && Number.isNaN(x);										},
 
@@ -41,50 +41,71 @@
 					}
 				}
 				return false;
+			},
+			is_empty: function(x){
+				if( this.is_undefined(x) || this.is_null(x)){ return true; }
+				if( this.is_string(x) ){ return x === ""; }
+				if( this.is_array(x) ){ return x.length === 0; }
+				if( this.is_object(x) ){
+					for(var prop in x){
+						if(x.hasOwnProperty(prop)){ return false; }
+				    }
+				    return true;
+				}
+				return !x;
 			}
 		};
 
-		// Public
+		// Reassigning all methods of the check object that starts with is_ to the is object
+		//    check.is_number() ---> is.number()
 		var is = {};
-		is.empty = function(x){
-			if( this.undefined(x) || this.null(x)){ return true; }
-			if( this.string(x) ){ return x === ""; }
-			if( this.array(x) ){ return x.length === 0; }
-			if( this.object(x) ){
-				for(var prop in x){
-					if(x.hasOwnProperty(prop)){ return false; }
-			    }
-			    return true;
+		_.forIn(check,function(value,key){
+			if(key.indexOf('is_') >= 0 ){
+				key = key.replace('is_','');
+				is[key] = function(x){ 	return check.if(x,key, this.is_not);	};
 			}
-			return !x;
-		};
-		is.array = function(x)		{ 	return check.if(x,'array', this.is_not);		};
-		is.object= function(x)		{ 	return check.if(x,'object', this.is_not);		};
-		is.string= function(x)		{ 	return check.if(x,'string', this.is_not);		};
+		});
 
-		is.number= function(x)		{ 	return check.if(x,'number', this.is_not);		};
-		is.even = function(x)		{ 	return check.if(x,'even', this.is_not);			};
-		is.odd = function(x)		{ 	return check.if(x,'odd', this.is_not);			};
-		is.nan = function(x)		{ 	return check.if(x,'nan', this.is_not);			};
-		is.infinite = function(x)	{ 	return check.if(x,'infinite', this.is_not);		};
-
-		is.boolean= function(x)		{ 	return check.if(x,'boolean', this.is_not); 		};
-		is.true = function(x)		{ 	return check.if(x,'true', this.is_not); 		};
-		is.false = function(x)		{ 	return check.if(x,'false', this.is_not); 		};
-
-		is.json = function(x)		{ 	return check.if(x,'json', this.is_not);			};
-		is.null = function(x)		{ 	return check.if(x,'null', this.is_not);			};
-		is.undefined = function(x)	{ 	return check.if(x,'undefined', this.is_not);	};
-		
 		// chaining
 		is.a 	= 	is;
 		is.an 	= 	is;
 
 		// negation
 		is.not 	= 	_.clone(is);
-		is.not.is_not = true;;
+		is.not.is_not = true;
 
-		return is;
+		/* 
+		 * The exported library can be both:
+		 *  (1) A function that returns an IS object that has methods that call itself
+		 *			is.number --> function(x){...}				// original is object
+		 *			is.number --> function(){ is.number(x) }	// form returned from function
+		 *  (2) An is object (properties are added to the function)
+		*/
+		var isfunc = function(x){
+			var newobj = {};
+
+			_.forIn(is,function(value,key){
+				if(is[key].constructor === Function){
+					newobj[key] = function(){ return is[key](x); }
+				}
+				else{
+					newobj[key] = is[key]
+				}
+			});
+
+			newobj.a = newobj;
+			newobj.an = newobj;
+			newobj.not 	= 	_.clone(newobj);
+			newobj.not.is_not = true;
+
+			return newobj;
+		};
+
+		for(var key in is){
+			isfunc[key] = is[key];
+		}
+
+		return isfunc;
 
 	})();
 
