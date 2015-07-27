@@ -25,6 +25,7 @@ An expressive type testing utility library for Node.
 ## Basics
 	is.object 		({})
 	is.array 		([1,2,3])
+	is.function 	(function(){return 'hi'})
 	is.string 		('hello world')
 	is.json 		('[{"key":"somevalue"}]')
 	is.number 		(1)
@@ -35,7 +36,7 @@ An expressive type testing utility library for Node.
 
 
 ## Utility
-	is.empty		({}) //true for {}, [], 0, "", null, undefined
+	is.empty		({}) 	//true for {}, [], 0, "", null, undefined, false
 
 ## Numbers
 	is.number		(1)

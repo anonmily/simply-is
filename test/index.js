@@ -74,6 +74,19 @@ describe('is.boolean',function(){
 	it('array', 	function(done){		is.boolean([1,2,3])			.should.equal(false); 	done();		});
 	it('string', 	function(done){		is.boolean('hi')			.should.equal(false);	done();		});
 });
+describe('is.function',function(){
+	it('function', 	function(done){	
+		var f = function(){ return 'hi';};	
+		is.function(f).should.equal(true); 	
+		done();
+	});
+	it('undefined', function(done){		is.function(undefined)		.should.equal(false); 	done();		});
+	it('null', 		function(done){		is.function(null)			.should.equal(false);	done();		});
+	it('number', 	function(done){		is.function(456)			.should.equal(false); 	done();		});
+	it('object', 	function(done){		is.function({})				.should.equal(false);	done();		});
+	it('array', 	function(done){		is.function([1,2,3])		.should.equal(false); 	done();		});
+	it('string', 	function(done){		is.function('hi')			.should.equal(false);	done();		});
+});
 describe('is.json',function(){
 
 	it('json {}', 					function(done){		is.json('{}')				.should.equal(true);	done();		});

@@ -4,6 +4,15 @@
 	var log = require('./support/log')(config);
 	var _ = require('lodash');
 
+	var type = function(x){
+		return {
+			type: Object.prototype.toString.call(x).replace('[object ','').replace(']','').toLowerCase(),
+			is: function(y){
+				return this.type === y;
+			}
+		}
+	};
+
 	module.exports = (function(){
 		// Private
 		var check = {
@@ -14,22 +23,25 @@
 					return this['is_'+testfor](x);
 				}
 			},
-			is_array: 	function(x)	{ 	return !this.is_null(x) && !this.is_undefined(x) && x.constructor === Array; 		},
-			is_object: function(x)	{	return !this.is_null(x) && !this.is_undefined(x) && x.constructor === Object; 		},
-			is_string: function(x)	{ 	return !this.is_null(x) && !this.is_undefined(x) && x.constructor === String; 		},
+			is_array: 	function(x)	{ 	return type(x).is('array');			},
+			is_object: function(x)	{	return type(x).is('object');		},
+			
+			is_function: function(x){	return type(x).is('function');		},
 
-			is_number: function(x)	{ 	return !this.is_null(x) && !this.is_undefined(x) && x.constructor === Number; 		},
+			is_string: function(x)	{ 	return type(x).is('string');		},
+
+			is_number: function(x)	{ 	return type(x).is('number');		},
 			is_even: function(x)	{ 	return this.is_number(x) && !this.is_infinite(x) && !this.is_nan(x) && x % 2 === 0;	},
 			is_odd: function(x)		{ 	return this.is_number(x) && !this.is_infinite(x) && !this.is_nan(x) && x % 2 !== 0; },
 			is_infinite: function(x){	return this.is_number(x) && (x === Infinity || x === -Infinity); 					},
 			is_nan: function(x)		{	return this.is_number(x) && Number.isNaN(x);										},
 
-			is_boolean: function(x)	{ 	return !this.is_null(x) && !this.is_undefined(x) && x.constructor === Boolean; 		},
-			is_true: function(x)	{	return x === true; 		},
-			is_false: function(x)	{	return x === false; 	},
+			is_boolean: function(x)	{ 	return type(x).is('boolean'); 		},
+			is_true: function(x)	{	return x === true; 					},
+			is_false: function(x)	{	return x === false; 				},
 
-			is_null: function(x)	{	return x === null;					},
-			is_undefined: function(x){	return typeof x === 'undefined';	},
+			is_null: function(x)	{	return type(x).is('null');			},
+			is_undefined: function(x){	return type(x).is('undefined');		},
 			is_defined: function(x) { 	return !is_undefined(x); 			},
 
 			is_json: function(x)	{
@@ -92,7 +104,7 @@
 			var newobj = {};
 
 			_.forIn(is,function(value,key){
-				if(is[key].constructor === Function){
+				if(is.function(is[key])){
 					newobj[key] = function(){ return is[key](x); }
 				}
 				else{
