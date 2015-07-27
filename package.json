@@ -13,9 +13,11 @@
   "keywords": [
     "type",
     "utility",
-    "check",
+    "util",
     "boolean",
-    "typing"
+    "typing",
+    "type testing",
+    "type check"
   ],
   "author": "Michelle Liu <michelle@michelleliu.io> (http://michelleliu.io)",
   "license": "MIT",

@@ -25,7 +25,7 @@
 			},
 			is_array: 	function(x)	{ 	return type(x).is('array');			},
 			is_object: function(x)	{	return type(x).is('object');		},
-			
+
 			is_function: function(x){	return type(x).is('function');		},
 
 			is_string: function(x)	{ 	return type(x).is('string');		},
@@ -42,7 +42,7 @@
 
 			is_null: function(x)	{	return type(x).is('null');			},
 			is_undefined: function(x){	return type(x).is('undefined');		},
-			is_defined: function(x) { 	return !is_undefined(x); 			},
+			is_defined: function(x) { 	return !this.is_undefined(x); 		},
 
 			is_json: function(x)	{
 				if(this.is_string(x)){
@@ -105,7 +105,7 @@
 
 			_.forIn(is,function(value,key){
 				if(is.function(is[key])){
-					newobj[key] = function(){ return is[key](x); }
+					newobj[key] = is[key](x);
 				}
 				else{
 					newobj[key] = is[key]
