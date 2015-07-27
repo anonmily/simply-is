@@ -42,7 +42,7 @@
 
 			is_null: function(x)	{	return type(x).is('null');			},
 			is_undefined: function(x){	return type(x).is('undefined');		},
-			is_defined: function(x) { 	return !is_undefined(x); 			},
+			is_defined: function(x) { 	return !this.is_undefined(x); 			},
 
 			is_json: function(x)	{
 				if(this.is_string(x)){
