@@ -64,6 +64,3 @@ An expressive type testing utility library for Node.
 8. is.xml
 9. is.integer
 10. is.decimal
-11. is.base
-12. is.hex
-13. is.base64
