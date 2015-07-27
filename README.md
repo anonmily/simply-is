@@ -51,4 +51,16 @@ An expressive type testing utility library for Node.
 	is.boolean  	(true)
 	is.true			(1==1)
 	is.false		(1==2)
-
+	
+---
+## TODO
+1. is.instance
+2. is.date
+3. is.regexp
+4. is.error
+5. is.arguments
+6. is.csv
+7. is.yaml
+8. is.xml
+9. is.integer
+10. is.decimal
