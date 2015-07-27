@@ -167,3 +167,25 @@ describe('is.false',function(){
 	it('true is not false', 	function(done){		is.false(true)			.should.equal(false); 	done();		});
 });
 
+//Alternative syntax
+describe('alternative syntaxes', function(){
+	it('chaining',function(done){
+		is({}).an.object						.should.equal(true);
+		is('hi').a.string						.should.equal(true);
+		done();
+	});
+	it('is({}).object',function(done){
+		is({}).object							.should.equal(true);
+		is([1,2,3]).array						.should.equal(true);
+		is(2).number							.should.equal(true);
+		is(2).even								.should.equal(true);
+		is(3).odd								.should.equal(true);
+		is(3/0).infinite						.should.equal(true);
+		is(0/0).nan 							.should.equal(true);
+		is('hello').a.string					.should.equal(true);
+		is('[{"key":"somevalue"}]').json		.should.equal(true);
+		is(undefined).undefined					.should.equal(true);
+		is(null).null							.should.equal(true);
+		done();
+	})
+})

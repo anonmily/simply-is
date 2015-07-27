@@ -19,9 +19,9 @@ An expressive type testing utility library for Node.
 	is.not.an.array({})		//negation
 	
 	//alternative syntax
-	is(3).even()
-	is('hello').a.string()
-	is('[{"key":"somevalue"}]').json()
+	is(3).even
+	is('hello').a.string
+	is('[{"key":"somevalue"}]').json
 
 
 ## Basics
