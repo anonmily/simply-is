@@ -11,6 +11,8 @@ An expressive type testing utility library for Node.
 ## Installation
     npm install simply-is
 
+    bower install simply-is
+
 ## Example
 	var is = require('simply-is');
 
@@ -65,6 +67,9 @@ An expressive type testing utility library for Node.
 	
 ---
 ## TODO
+
+_hopefully remove lodash dependency_
+
 1. is.instance
 2. is.date
 3. is.regexp
