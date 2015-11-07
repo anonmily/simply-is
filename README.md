@@ -2,7 +2,7 @@ Simply Is
 ====================
 ![Simply Is Dependency badge](https://david-dm.org/anonmily/simply-is.svg)
 
-An expressive type testing utility library for Node.
+An expressive type testing utility library.
 
 [GITHUB:	https://github.com/anonmily/simply-is](https://github.com/anonmily/simply-is)
 
