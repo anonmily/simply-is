@@ -16,11 +16,19 @@
 	module.exports = (function(){
 		// Private
 		var check = {
-			if: function(x,testfor,not){ 
+			if: function(){ 
+				//variable arguments x,testfor,not
+				var args = [];
+				for(var i=0; i< arguments.length; i++){
+					args.push(arguments[i]);
+				};
+				var not = args.pop(); //last argument is NOT/reverse, determines whether or not to reverse the result
+				var testfor = args.pop(); //second to last argument is the type of test
+
 				if(not){
-					return !this['is_'+testfor](x);
+					return !this['is_'+testfor].apply(this,args);
 				}else{
-					return this['is_'+testfor](x);
+					return this['is_'+testfor].apply(this,args);
 				}
 			},
 			is_array: 	function(x)	{ 	return type(x).is('array');			},
@@ -66,16 +74,33 @@
 				    return true;
 				}
 				return !x;
+			},
+			is_inside: function(x,target){
+				if( this.is_object(target) ){
+					return _.includes( target, x ) || _.includes( _.keys(target), x );
+				}
+				return _.includes( target, x );
 			}
 		};
 
 		// Reassigning all methods of the check object that starts with is_ to the is object
 		//    check.is_number() ---> is.number()
 		var is = {};
+		is.negate = false;
 		_.forIn(check,function(value,key){
 			if(key.indexOf('is_') >= 0 ){
 				key = key.replace('is_','');
-				is[key] = function(x){ 	return check.if(x,key, this.is_not);	};
+				is[key] = function(){ 	//variable arguments
+					var args = [];
+					for(var i=0; i< arguments.length ; i++){
+						args.push(arguments[i]);
+					}
+					// additional arguments
+					args.push(key);
+					args.push(this.negate);
+
+					return check.if.apply(check, args);	
+				};
 			}
 		});
 
@@ -85,7 +110,7 @@
 
 		// negation
 		is.not 	= 	_.clone(is);
-		is.not.is_not = true;
+		is.not.negate = true;
 
 		/* 
 		 * The exported library can be both:
@@ -100,12 +125,25 @@
 		 *			is.number(3);
 		 *
 		*/
-		var isfunc = function(x){
+		var isfunc = function(){ //variable arguments
 			var newobj = {};
+			
+			var args = [];
+			for(var i = 0; i< arguments.length; i++){
+				args.push(arguments[i]);
+			}
 
-			_.forIn(is,function(value,key){
-				if(is.function(is[key])){
-					newobj[key] = is[key](x);
+			_.forIn(is, function(value,key){
+				if(  is.function( is[key] )  ){
+					if( key === 'inside' ){
+						newobj[key] = function(target){
+							args.push(target);
+							return is[key].apply(this,args)
+						}
+					}else{
+						newobj[key] = is[key].apply(is,args);
+					}
+					
 				}
 				else{
 					newobj[key] = is[key]
@@ -115,7 +153,7 @@
 			newobj.a = newobj;
 			newobj.an = newobj;
 			newobj.not 	= 	_.clone(newobj);
-			newobj.not.is_not = true;
+			newobj.not.negate = true;
 
 			return newobj;
 		};

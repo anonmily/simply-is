@@ -40,6 +40,17 @@ An expressive type testing utility library for Node.
 ## Utility
 	is.empty		({}) 	//true for {}, [], 0, "", null, undefined, false
 
+## Contains/inside
+	is.inside("fred", {"user": "fred", "age":40 })
+	is.inside("age", {"user": "fred", "age":40 })
+	is.inside("apple",["peach","apple","grapes"])
+	is.inside("cat","I love cats")
+
+	is("fred").inside({"user": "fred", "age":40 })
+	is("age").inside({"user": "fred", "age":40 })
+	is("apple").inside(["peach","apple","grapes"])
+	is("cat").inside("I love cats")
+
 ## Numbers
 	is.number		(1)
 	is.nan			(NaN)
