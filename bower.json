@@ -1,0 +1,33 @@
+{
+  "name": "simplyis",
+  "main": "simplyis.js",
+  "version": "1.0.0",
+  "homepage": "https://github.com/anonmily/simply-is",
+  "authors": [
+    "Michelle Liu <michelle@michelleliu.io>"
+  ],
+  "description": "Expressive type testing tools",
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "type",
+    "is",
+    "boolean",
+    "utility",
+    "true"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "lodash": "~3.10.1"
+  }
+}
