@@ -37,10 +37,15 @@ An expressive type testing utility library.
 	is.null 		(Null)
 	is.undefined 	(undefined)
 	is.defined 		(1)
+	is.date 		(new Date())
+	is.regexp 		(/abc/)
 
 
 ## Utility
 	is.empty		({}) 	//true for {}, [], 0, "", null, undefined, false
+	is.inArray 		('a',['a','b','c'])
+	is.inObject 	('apple',{fruit: 'apple'})
+	is.instanceOf 	( doberman, DogConstructor )
 
 ## Contains/inside
 	is.inside("fred", {"user": "fred", "age":40 })
@@ -59,6 +64,8 @@ An expressive type testing utility library.
 	is.infinite		(Infinity)
 	is.even			(2)
 	is.odd			(3)
+	is.integer 		(10)
+	is.decimal 		(10.5)
 
 ## Booleans
 	is.boolean  	(true)
@@ -68,15 +75,7 @@ An expressive type testing utility library.
 ---
 ## TODO
 
-_hopefully remove lodash dependency_
-
-1. is.instance
-2. is.date
-3. is.regexp
-4. is.error
-5. is.arguments
-6. is.csv
-7. is.yaml
-8. is.xml
-9. is.integer
-10. is.decimal
+1. is.arguments
+2. is.csv
+3. is.yaml
+4. is.xml

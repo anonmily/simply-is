@@ -1,7 +1,7 @@
 {
   "name": "simplyis",
   "main": ["simplyis.js","index.js"],
-  "version": "2.3.0",
+  "version": "2.4.0",
   "homepage": "https://github.com/anonmily/simply-is",
   "authors": [
     "Michelle Liu <michelle@michelleliu.io>"
@@ -28,6 +28,5 @@
     "tests"
   ],
   "dependencies": {
-    "lodash": "~3.10.1"
   }
 }

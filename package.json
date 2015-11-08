@@ -1,6 +1,6 @@
 {
   "name": "simply-is",
-  "version": "2.3.1",
+  "version": "2.4.0",
   "description": "An expressive type testing library",
   "repository": {
     "type": "git",
@@ -22,8 +22,6 @@
   "author": "Michelle Liu <michelle@michelleliu.io> (http://michelleliu.io)",
   "license": "MIT",
   "dependencies": {
-    "colors": "^1.1.2",
-    "lodash": "^3.10.0"
   },
   "devDependencies": {
     "mocha": "^2.2.5",

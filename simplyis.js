@@ -1,13 +1,13 @@
 (function(global, factory) {
     if (typeof module === 'object') {
-        module.exports = factory(require('lodash'));
+        module.exports = factory();
     } else if (typeof define === 'function' && define.amd) {
-        define(['lodash'], factory);
+        define([], factory);
     } else {
         window.simplyIs = factory(_);
     }
 
-}(typeof window !== "undefined" ? window : this, function factory(_) {
+}(typeof window !== "undefined" ? window : this, function factory() {
     var type = function(x) {
         return {
             type: Object.prototype.toString.call(x).replace('[object ', '').replace(']', '').toLowerCase(),
@@ -16,6 +16,39 @@
             }
         };
     };
+
+    var forIn = function(obj, callback){
+        for(var key in obj){
+            if( obj.hasOwnProperty(key) ){
+                callback( obj[key], key, obj)
+            }
+        }
+    }
+
+    var clone = function(x){
+        var copy;
+
+        if( type(x).is('date') ){
+            copy = new Date();
+            copy.setTime(x.getTime());
+            return copy;
+        }
+        if( type(x).is('array') ){
+            copy = [].concat(x);
+            return copy;
+        }
+        if( type(x).is('object') ){
+            copy = {};
+            forIn(x,function(value,key){
+                copy[key] = value;
+            });
+            return copy;
+        };
+        if( type(x).is('null') || type(x).is('undefined') || !type(x).is('object') ){
+            return x;
+        }
+        
+    }
 
     var simplyIs = (function() {
         // Private
@@ -41,17 +74,27 @@
             is_object: function(x) {
                 return type(x).is('object');
             },
-
+            is_date: function(x){
+                return type(x).is('date');
+            },
+            is_regexp: function(x){
+                return type(x).is('regexp');
+            },
             is_function: function(x) {
                 return type(x).is('function');
             },
-
             is_string: function(x) {
                 return type(x).is('string');
             },
 
             is_number: function(x) {
                 return type(x).is('number');
+            },
+            is_integer: function(x){
+                return this.is_number(x) && !this.is_infinite(x) && !this.is_nan(x) && (x.toString().indexOf('.') <= 0) ;
+            },
+            is_decimal: function(x){
+                return this.is_number(x) && !this.is_infinite(x) && !this.is_nan(x) && (x.toString().indexOf('.') > 0) ;
             },
             is_even: function(x) {
                 return this.is_number(x) && !this.is_infinite(x) && !this.is_nan(x) && x % 2 === 0;
@@ -84,6 +127,9 @@
             },
             is_defined: function(x) {
                 return !this.is_undefined(x);
+            },
+            is_error: function(x){
+                return type(x).is('error');
             },
 
             is_json: function(x) {
@@ -119,11 +165,34 @@
                 }
                 return !x;
             },
-            is_inside: function(x, target) {
-                if (this.is_object(target)) {
-                    return _.includes(target, x) || _.includes(_.keys(target), x);
+            is_inArray: function(x, arr){
+                if( !this.is_array(arr) ){
+                    throw new TypeError('check.is_inArray needs a valid array');
+                }else{
+                    return arr.indexOf(x) >= 0;
                 }
-                return _.includes(target, x);
+            },
+            is_inObject: function(x,obj){
+                for(var key in obj){
+                    if( obj.hasOwnProperty(key) && ( key === x || obj[key] === x ) ){
+                        return true;
+                    }
+                }
+                return false;
+            },
+
+            is_instanceOf: function(child,parentConstructor){
+                return child instanceof parentConstructor;
+            },
+            is_inside: function(x, target) {
+                if (this.is_object(target)){
+                    return this.is_inObject(x,target);
+                }else if( this.is_array(target) ){
+                    return this.is_inArray(x,target);
+                }else if( this.is_string(target) ){
+                    return target.indexOf(x) >= 0;
+                }
+                return false;
             }
         };
 
@@ -131,7 +200,7 @@
         //    check.is_number() ---> is.number()
         var is = {};
         is.negate = false;
-        _.forIn(check, function(value, key) {
+        forIn(check, function(value, key) {
             if (key.indexOf('is_') >= 0) {
                 key = key.replace('is_', '');
                 is[key] = function() { //variable arguments
@@ -153,7 +222,7 @@
         is.an = is;
 
         // negation
-        is.not = _.clone(is);
+        is.not = clone(is);
         is.not.negate = true;
 
         /* 
@@ -177,12 +246,16 @@
                 args.push(arguments[i]);
             }
 
-            _.forIn(is, function(value, key) {
+            var functions = ['inside','inArray','inObject','instanceOf','siblingOf'];
+
+            forIn(is, function(value, key) {
                 if (is.function(is[key])) {
-                    if (key === 'inside') {
+                    if ( functions.indexOf(key) >= 0 ) {
                         newobj[key] = function(target) {
-                            args.push(target);
-                            return is[key].apply(this, args);
+                            var newargs = [];
+                            newargs = newargs.concat(args)
+                            newargs.push(target);
+                            return is[key].apply(this, newargs);
                         };
                     } else {
                         newobj[key] = is[key].apply(is, args);
@@ -195,8 +268,8 @@
 
             newobj.a = newobj;
             newobj.an = newobj;
-            newobj.not = _.clone(newobj);
-            newobj.not.negate = true;
+            newobj.not = clone(newobj);
+                newobj.not.negate = true;
 
             return newobj;
         };
