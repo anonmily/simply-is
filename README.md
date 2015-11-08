@@ -26,13 +26,13 @@ The package can be installed via Bower:
 
 Then, you include the script as usual using a script tag. Note, for frontend use, the file that should be included is **simplyis.js**:
 
-    <script src='/simplyis.js'></script>
+    <script src='/bower_components/simplyis/simplyis.js'></script>
 
 The script is available as a global module as well as an AMD module. As a global module, it can be accessed through **window.simplyIs**.
 
     var is = window.simplyIs;
     console.log( is('300').a.number );
-    
+
 
 ## Example
 	var is = require('simply-is');
