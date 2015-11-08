@@ -8,10 +8,31 @@ An expressive type testing utility library.
 
 [NPM:		https://www.npmjs.com/package/simply-is](https://www.npmjs.com/package/simply-is)
 
-## Installation
+## Installation - Node
+To install as a Node package, simply install via npm:
+
     npm install simply-is
 
+Then, you can require and start using the package as you wish:
+
+	var is = require('simply-is');
+	console.log( is('300').a.number );
+
+
+## Installation - Bower
+The package can be installed via Bower:
+
     bower install simply-is
+
+Then, you include the script as usual using a script tag. Note, for frontend use, the file that should be included is **simplyis.js**:
+
+    <script src='/simplyis.js'></script>
+
+The script is available as a global module as well as an AMD module. As a global module, it can be accessed through **window.simplyIs**.
+
+    var is = window.simplyIs;
+    console.log( is('300').a.number );
+    
 
 ## Example
 	var is = require('simply-is');
