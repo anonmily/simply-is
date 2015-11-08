@@ -1,7 +1,7 @@
 {
   "name": "simplyis",
   "main": ["simplyis.js","index.js"],
-  "version": "2.4.4",
+  "version": "2.4.5",
   "homepage": "https://github.com/anonmily/simply-is",
   "authors": [
     "Michelle Liu <michelle@michelleliu.io>"

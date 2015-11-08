@@ -56,8 +56,8 @@
             if: function() {
                 //variable arguments x,testfor,not
                 var args = [];
-                for (var i = 0; i < arguments.length; i++) {
-                    args.push(arguments[i]);
+                for (var a = 0; a < arguments.length; a++) {
+                    args.push(arguments[a]);
                 }
                 var not = args.pop(); //last argument is NOT/reverse, determines whether or not to reverse the result
                 var testfor = args.pop(); //second to last argument is the type of test
@@ -74,47 +74,25 @@
             is_array: function(x) {
                 return type(x).is('array');
             },
-            is_object: function(x) {
-                return type(x).is('object');
-            },
-            is_date: function(x){
-                return type(x).is('date');
-            },
-            is_regexp: function(x){
-                return type(x).is('regexp');
+            is_boolean: function(x) {
+                return type(x).is('boolean');
             },
             is_function: function(x) {
                 return type(x).is('function');
+            },
+            is_number: function(x) {
+                return type(x).is('number');
+            },
+            is_object: function(x) {
+                return type(x).is('object');
+            },
+            is_regexp: function(x){
+                return type(x).is('regexp');
             },
             is_string: function(x) {
                 return type(x).is('string');
             },
 
-            is_number: function(x) {
-                return type(x).is('number');
-            },
-            is_integer: function(x){
-                return this.is_number(x) && !this.is_infinite(x) && !this.is_nan(x) && (x.toString().indexOf('.') <= 0) ;
-            },
-            is_decimal: function(x){
-                return this.is_number(x) && !this.is_infinite(x) && !this.is_nan(x) && (x.toString().indexOf('.') > 0) ;
-            },
-            is_even: function(x) {
-                return this.is_number(x) && !this.is_infinite(x) && !this.is_nan(x) && x % 2 === 0;
-            },
-            is_odd: function(x) {
-                return this.is_number(x) && !this.is_infinite(x) && !this.is_nan(x) && x % 2 !== 0;
-            },
-            is_infinite: function(x) {
-                return this.is_number(x) && (x === Infinity || x === -Infinity);
-            },
-            is_nan: function(x) {
-                return this.is_number(x) && Number.isNaN(x);
-            },
-
-            is_boolean: function(x) {
-                return type(x).is('boolean');
-            },
             is_true: function(x) {
                 return x === true;
             },
@@ -135,6 +113,27 @@
                 return type(x).is('error');
             },
 
+             // Numbers
+            is_integer: function(x){
+                return this.is_number(x) && !this.is_infinite(x) && !this.is_nan(x) && (x.toString().indexOf('.') <= 0) ;
+            },
+            is_decimal: function(x){
+                return this.is_number(x) && !this.is_infinite(x) && !this.is_nan(x) && (x.toString().indexOf('.') > 0) ;
+            },
+            is_even: function(x) {
+                return this.is_number(x) && !this.is_infinite(x) && !this.is_nan(x) && x % 2 === 0;
+            },
+            is_odd: function(x) {
+                return this.is_number(x) && !this.is_infinite(x) && !this.is_nan(x) && x % 2 !== 0;
+            },
+            is_infinite: function(x) {
+                return this.is_number(x) && (x === Infinity || x === -Infinity);
+            },
+            is_nan: function(x) {
+                return this.is_number(x) && Number.isNaN(x);
+            },
+
+
             is_json: function(x) {
                 if (this.is_string(x)) {
                     try {
@@ -142,7 +141,7 @@
                             return true;
                         }
                     } catch (e) {
-                        console.log(e.name + ": " + e.message);
+                        //console.log(e.name + ": " + e.message);
                         return false;
                     }
                 }
@@ -242,24 +241,25 @@
          *
          */
         var isfunc = function() { //variable arguments
-            var newobj = {};
 
+            var newobj = {};
             var args = [];
             for (var i = 0; i < arguments.length; i++) {
                 args.push(arguments[i]);
             }
-
             var functions = ['inside','inArray','inObject','instanceOf','siblingOf'];
 
+            
             forIn(is, function(value, key) {
                 if (is.function(is[key])) {
                     if ( functions.indexOf(key) >= 0 ) {
+                     
                         newobj[key] = function(target) {
                             var newargs = [];
-                            newargs = newargs.concat(args)
-                            newargs.push(target);
+                            newargs = args.concat([target]);
                             return is[key].apply(this, newargs);
                         };
+
                     } else {
                         newobj[key] = is[key].apply(is, args);
                     }
@@ -268,6 +268,8 @@
                     newobj[key] = is[key];
                 }
             });
+
+            
 
             newobj.a = newobj;
             newobj.an = newobj;
