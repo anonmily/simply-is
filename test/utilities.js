@@ -1,7 +1,16 @@
 var should = require('should'),
 	is = require('../index.js');
 
-//Is inside
+//Utilities
+describe('is.empty',function(){
+	it('{}', 		function(done){		is.empty({})			.should.equal(true);		done();		});
+	it('[]', 		function(done){		is.empty([])			.should.equal(true);		done();		});
+	it('0', 		function(done){		is.empty(0)				.should.equal(true);		done();		});
+	it('""', 		function(done){		is.empty("")			.should.equal(true);		done();		});
+	it('null', 		function(done){		is.empty(null)			.should.equal(true);		done();		});
+	it('undefined', function(done){		is.empty(undefined)		.should.equal(true);		done();		});
+});
+
 describe('is.inside',function(){
 	it('is.inside("apple", ["peach","apple","grapes"])',function(done){
 		is.inside("apple", ["peach","apple","grapes"])		.should.equal(true);

@@ -68,6 +68,9 @@
                     return this['is_' + testfor].apply(this, args);
                 }
             },
+            is_arguments: function(x){
+                return type(x).is('arguments');
+            },
             is_array: function(x) {
                 return type(x).is('array');
             },

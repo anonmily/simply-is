@@ -18,13 +18,14 @@ Then, you can require and start using the package as you wish:
 	var is = require('simply-is');
 	console.log( is('300').a.number );
 
-
-## Installation - Bower
+## Installation - Bower/Frontend
 The package can be installed via Bower:
 
     bower install simply-is
 
-Then, you include the script as usual using a script tag. Note, for frontend use, the file that should be included is **simplyis.js**:
+SimplyIs can also be [downloaded](https://raw.githubusercontent.com/anonmily/simply-is/master/simplyis.js) directly.
+
+Note, for frontend use, the file that should be included is **simplyis.js**:
 
     <script src='/bower_components/simplyis/simplyis.js'></script>
 
@@ -33,6 +34,9 @@ The script is available as a global module as well as an AMD module. As a global
     var is = window.simplyIs;
     console.log( is('300').a.number );
 
+---
+
+## Usage
 
 ## Example
 	var is = require('simply-is');
@@ -64,8 +68,12 @@ The script is available as a global module as well as an AMD module. As a global
 
 ## Utility
 	is.empty		({}) 	//true for {}, [], 0, "", null, undefined, false
+
 	is.inArray 		('a',['a','b','c'])
+
 	is.inObject 	('apple',{fruit: 'apple'})
+	is.inObject 	('fruit',{fruit: 'apple'})
+
 	is.instanceOf 	( doberman, DogConstructor )
 
 ## Contains/inside
@@ -96,7 +104,6 @@ The script is available as a global module as well as an AMD module. As a global
 ---
 ## TODO
 
-1. is.arguments
-2. is.csv
-3. is.yaml
-4. is.xml
+1. is.csv
+2. is.yaml
+3. is.xml
