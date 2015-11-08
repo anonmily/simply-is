@@ -52,18 +52,19 @@ The script is available as a global module as well as an AMD module. As a global
 
 
 ## Basics
-	is.object 		({})
+	is.argument 	( (function(){ return arguments; })(1,2,3) )
 	is.array 		([1,2,3])
-	is.function 	(function(){return 'hi'})
-	is.string 		('hello world')
-	is.json 		('[{"key":"somevalue"}]')
-	is.number 		(1)
 	is.boolean 		(1==1)
-	is.null 		(Null)
-	is.undefined 	(undefined)
-	is.defined 		(1)
 	is.date 		(new Date())
+	is.defined 		(1)
+	is.function 	(function(){return 'hi'})
+	is.json 		('[{"key":"somevalue"}]')
+	is.null 		(Null)
+	is.number 		(1)
+	is.object 		({})
 	is.regexp 		(/abc/)
+	is.string 		('hello world')
+	is.undefined 	(undefined)
 
 
 ## Utility

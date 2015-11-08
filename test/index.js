@@ -2,10 +2,10 @@ var should = require('should'),
 	is = require('../index.js');
 
 // General Types
-describe('is.arguments',function(){
+describe('is.argument',function(){
 	var args = function(){ return arguments; }
-	it('true', 	function(done){		is.arguments( args(1,2,3) )	.should.equal(true);	done();			});
-	it('false', function(done){		is.arguments( [1,2,3] )		.should.equal(false);	done();			});
+	it('true', 	function(done){		is.argument( args(1,2,3) )	.should.equal(true);	done();			});
+	it('false', function(done){		is.argument( [1,2,3] )		.should.equal(false);	done();			});
 });
 describe('is.array',function(){
 	it('array', 	function(done){		is.array([1,2,3])		.should.equal(true); 	done();		});
@@ -123,6 +123,7 @@ describe('is.number',function(){
 	it('null', 		function(done){		is.number(null)			.should.equal(false);	done();		});
 	it('undefined', function(done){		is.number(undefined)	.should.equal(false); 	done();		});
 });
+
 
 describe('is.regexp',function(){
 	it('true', 	function(done){		is.regexp(new RegExp())		.should.equal(true);	done();			});
