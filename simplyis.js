@@ -1,4 +1,5 @@
 (function(global, factory) {
+    'use strict';
     if (typeof module === 'object') {
         module.exports = factory();
     } else if (typeof define === 'function' && define.amd) {
@@ -73,6 +74,9 @@
             },
             is_array: function(x) {
                 return type(x).is('array');
+            },
+            is_date: function(x) {
+                return type(x).is('date');
             },
             is_boolean: function(x) {
                 return type(x).is('boolean');
