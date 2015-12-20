@@ -61,4 +61,35 @@ describe('is.inside',function(){
 		is("bananas").inside(["peach","apple","grapes"])	.should.equal(false);
 		done();
 	});
-})
+});
+
+
+describe('is.equal',function(){
+	it('is.equal({a: 1, b: "hello"}, {b:"hello", a:1})',function(done){
+		is.equal({a: 1, b: "hello"}, {b:"hello", a:1})		.should.equal(true);
+		done();
+	});
+	it('is({a: 1, b: "hello"}).equal({b:"hello", a:1})',function(done){
+		is({a: 1, b: "hello"}).equal({b:"hello", a:1})		.should.equal(true);
+		done();
+	});
+	it('is.equal({a: 1, b: "hello"}, {b:"blah", a:1})',function(done){
+		is.equal({a: 1, b: "hello"}, {b:"blah", a:1})		.should.equal(false);
+		done();
+	});
+	it('is.equal({a: 1, b: "hello"}, {a:1, c: "hello" })',function(done){
+		is.equal({a: 1, b: "hello"}, {a:1, c: "hello" })	.should.equal(false);
+		done();
+	});
+});
+
+describe('is.sameType',function(){
+	it('is.sameType({a: 1, b: "hello"}, {a: Number, b: String})',function(done){
+		is.sameType({a: 1, b: "hello"}, {a: Number, b: String})		.should.equal(true);
+		done();
+	});
+	it('is.sameType({a: 1, b: "hello"}, {a: Number, b: String})',function(done){
+		is.sameType({a: 1, b: "hello"}, {a: Number, b: String})		.should.equal(true);
+		done();
+	});
+});

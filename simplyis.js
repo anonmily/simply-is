@@ -18,37 +18,37 @@
         };
     };
 
-    var forIn = function(obj, callback){
-        for(var key in obj){
-            if( obj.hasOwnProperty(key) ){
-                callback( obj[key], key, obj)
+    var forIn = function(obj, callback) {
+        for (var key in obj) {
+            if (obj.hasOwnProperty(key)) {
+                callback(obj[key], key, obj)
             }
         }
     }
 
-    var clone = function(x){
+    var clone = function(x) {
         var copy;
 
-        if( type(x).is('date') ){
+        if (type(x).is('date')) {
             copy = new Date();
             copy.setTime(x.getTime());
             return copy;
         }
-        if( type(x).is('array') ){
+        if (type(x).is('array')) {
             copy = [].concat(x);
             return copy;
         }
-        if( type(x).is('object') ){
+        if (type(x).is('object')) {
             copy = {};
-            forIn(x,function(value,key){
+            forIn(x, function(value, key) {
                 copy[key] = value;
             });
             return copy;
         };
-        if( type(x).is('null') || type(x).is('undefined') || !type(x).is('object') ){
+        if (type(x).is('null') || type(x).is('undefined') || !type(x).is('object')) {
             return x;
         }
-        
+
     }
 
     var simplyIs = (function() {
@@ -69,7 +69,7 @@
                     return this['is_' + testfor].apply(this, args);
                 }
             },
-            is_argument: function(x){
+            is_argument: function(x) {
                 return type(x).is('arguments');
             },
             is_array: function(x) {
@@ -81,75 +81,11 @@
             is_boolean: function(x) {
                 return type(x).is('boolean');
             },
-            is_function: function(x) {
-                return type(x).is('function');
-            },
-            is_number: function(x) {
-                return type(x).is('number');
-            },
-            is_object: function(x) {
-                return type(x).is('object');
-            },
-            is_regexp: function(x){
-                return type(x).is('regexp');
-            },
-            is_string: function(x) {
-                return type(x).is('string');
-            },
-
-            is_true: function(x) {
-                return x === true;
-            },
-            is_false: function(x) {
-                return x === false;
-            },
-
-            is_null: function(x) {
-                return type(x).is('null');
-            },
-            is_undefined: function(x) {
-                return type(x).is('undefined');
+            is_decimal: function(x) {
+                return this.is_number(x) && !this.is_infinite(x) && !this.is_nan(x) && (x.toString().indexOf('.') > 0);
             },
             is_defined: function(x) {
                 return !this.is_undefined(x);
-            },
-            is_error: function(x){
-                return type(x).is('error');
-            },
-
-             // Numbers
-            is_integer: function(x){
-                return this.is_number(x) && !this.is_infinite(x) && !this.is_nan(x) && (x.toString().indexOf('.') <= 0) ;
-            },
-            is_decimal: function(x){
-                return this.is_number(x) && !this.is_infinite(x) && !this.is_nan(x) && (x.toString().indexOf('.') > 0) ;
-            },
-            is_even: function(x) {
-                return this.is_number(x) && !this.is_infinite(x) && !this.is_nan(x) && x % 2 === 0;
-            },
-            is_odd: function(x) {
-                return this.is_number(x) && !this.is_infinite(x) && !this.is_nan(x) && x % 2 !== 0;
-            },
-            is_infinite: function(x) {
-                return this.is_number(x) && (x === Infinity || x === -Infinity);
-            },
-            is_nan: function(x) {
-                return this.is_number(x) && Number.isNaN(x);
-            },
-
-
-            is_json: function(x) {
-                if (this.is_string(x)) {
-                    try {
-                        if (this.is_object(JSON.parse(x)) || this.is_array(JSON.parse(x))) {
-                            return true;
-                        }
-                    } catch (e) {
-                        //console.log(e.name + ": " + e.message);
-                        return false;
-                    }
-                }
-                return false;
             },
             is_empty: function(x) {
                 if (this.is_undefined(x) || this.is_null(x)) {
@@ -171,35 +107,117 @@
                 }
                 return !x;
             },
-            is_inArray: function(x, arr){
-                if( !this.is_array(arr) ){
+            is_error: function(x) {
+                return type(x).is('error');
+            },
+            is_even: function(x) {
+                return this.is_number(x) && !this.is_infinite(x) && !this.is_nan(x) && x % 2 === 0;
+            },
+            is_equal: function(x, y) {
+                if (this.is_object(x) && this.is_object(y)) {
+
+                    // do they have the same properties?
+                    if (Object.keys(x).sort().join(",") !== Object.keys(y).sort().join(",")) {
+                        return false;
+                    } else {
+
+                        // Check if all values are equal
+                        // For some reason, forIn isn't working here. 
+                        // Not a scoping issue, perhaps has to do with breaking out of the loop from the callback?
+                        for (var key in x) {
+                            if (x.hasOwnProperty(key)) {
+                                if (x[key] !== y[key]) {
+                                    return false;
+                                }
+                            }
+                        }
+                        return true;
+                    }
+                } else {
+                    return x === y;
+                }
+            },
+            is_false: function(x) {
+                return x === false;
+            },
+            is_function: function(x) {
+                return type(x).is('function');
+            },
+            is_infinite: function(x) {
+                return this.is_number(x) && (x === Infinity || x === -Infinity);
+            },
+            is_integer: function(x) {
+                return this.is_number(x) && !this.is_infinite(x) && !this.is_nan(x) && (x.toString().indexOf('.') <= 0);
+            },
+            is_inArray: function(x, arr) {
+                if (!this.is_array(arr)) {
                     throw new TypeError('check.is_inArray needs a valid array');
-                }else{
+                } else {
                     return arr.indexOf(x) >= 0;
                 }
             },
-            is_inObject: function(x,obj){
-                for(var key in obj){
-                    if( obj.hasOwnProperty(key) && ( key === x || obj[key] === x ) ){
+            is_inObject: function(x, obj) {
+                for (var key in obj) {
+                    if (obj.hasOwnProperty(key) && (key === x || obj[key] === x)) {
                         return true;
                     }
                 }
                 return false;
             },
-
-            is_instanceOf: function(child,parentConstructor){
+            is_instanceOf: function(child, parentConstructor) {
                 return child instanceof parentConstructor;
             },
             is_inside: function(x, target) {
-                if (this.is_object(target)){
-                    return this.is_inObject(x,target);
-                }else if( this.is_array(target) ){
-                    return this.is_inArray(x,target);
-                }else if( this.is_string(target) ){
+                if (this.is_object(target)) {
+                    return this.is_inObject(x, target);
+                } else if (this.is_array(target)) {
+                    return this.is_inArray(x, target);
+                } else if (this.is_string(target)) {
                     return target.indexOf(x) >= 0;
                 }
                 return false;
-            }
+            },
+            is_json: function(x) {
+                if (this.is_string(x)) {
+                    try {
+                        if (this.is_object(JSON.parse(x)) || this.is_array(JSON.parse(x))) {
+                            return true;
+                        }
+                    } catch (e) {
+                        //console.log(e.name + ": " + e.message);
+                        return false;
+                    }
+                }
+                return false;
+            },
+            is_nan: function(x) {
+                return this.is_number(x) && Number.isNaN(x);
+            },
+            is_null: function(x) {
+                return type(x).is('null');
+            },
+            is_number: function(x) {
+                return type(x).is('number');
+            },
+            is_object: function(x) {
+                return type(x).is('object');
+            },
+            is_odd: function(x) {
+                return this.is_number(x) && !this.is_infinite(x) && !this.is_nan(x) && x % 2 !== 0;
+            },
+            is_regexp: function(x) {
+                return type(x).is('regexp');
+            },
+            is_string: function(x) {
+                return type(x).is('string');
+            },
+            is_true: function(x) {
+                return x === true;
+            },
+            is_undefined: function(x) {
+                return type(x).is('undefined');
+            },
+
         };
 
         // Reassigning all methods of the check object that starts with is_ to the is object
@@ -235,13 +253,13 @@
          * The exported library can be both:
          *  (1) A function that returns an IS object with methods that call itself with the given value
          *
-         *			is(3).number();								// example usage
+         *          is(3).number();                             // example usage
          *
-         *			is.number --> function(x){...}				// is
-         *			is.number --> function(){ is.number(x) }	// form of is returned by calling the function
+         *          is.number --> function(x){...}              // is
+         *          is.number --> function(){ is.number(x) }    // form of is returned by calling the function
          *
          *  (2) An is 'object' (properties are added to the function)
-         *			is.number(3);
+         *          is.number(3);
          *
          */
         var isfunc = function() { //variable arguments
@@ -253,7 +271,7 @@
             }
 
             // these functions need more than one argument
-            var functions = ['inside','inArray','inObject','instanceOf','siblingOf'];
+            var functions = ['equal', 'inside', 'inArray', 'inObject', 'instanceOf', 'siblingOf'];
 
             // Go through all properties of the is object
             forIn(is, function(value, key) {
@@ -262,8 +280,8 @@
                 if (is.function(is[key])) {
 
                     // if the method is inside the list of functions that need more than one argument
-                    if ( functions.indexOf(key) >= 0 ) {
-                     
+                    if (functions.indexOf(key) >= 0) {
+
                         newobj[key] = function(target) {
                             var newargs = [];
                             newargs = args.concat([target]);
@@ -273,9 +291,9 @@
                     } else {
 
                         // lazy initialization, only calculate the result when you need it, instead of doing all calculations beforehand and saving the result
-                        Object.defineProperty(newobj, key,{
-                            get: function(){
-                               return is[key].apply(is, args);
+                        Object.defineProperty(newobj, key, {
+                            get: function() {
+                                return is[key].apply(is, args);
                             }
                         });
 
@@ -289,7 +307,7 @@
             newobj.a = newobj;
             newobj.an = newobj;
             newobj.not = clone(newobj);
-                newobj.not.negate = true;
+            newobj.not.negate = true;
 
             return newobj;
         };
