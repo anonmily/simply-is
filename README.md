@@ -110,3 +110,11 @@ The script is available as a global module as well as an AMD module. As a global
 1. is.csv
 2. is.yaml
 3. is.xml
+4. is.deepEqual
+
+---
+## Changelog
+| Version | Notes                                                                                                                                                                            |
+|---------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| _2.4.7_   | Used getter functions for isfunc to improve performance. The result of the comparison will only run when the result is needed/requested rather than stored in a static property. |
+| _2.5.5_   | Added in is.equal and is.sameType                                                                                                                                                |
