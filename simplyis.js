@@ -251,11 +251,17 @@
             for (var i = 0; i < arguments.length; i++) {
                 args.push(arguments[i]);
             }
+
+            // these functions need more than one argument
             var functions = ['inside','inArray','inObject','instanceOf','siblingOf'];
 
-            
+            // Go through all properties of the is object
             forIn(is, function(value, key) {
+
+                // we only care about the functions
                 if (is.function(is[key])) {
+
+                    // if the method is inside the list of functions that need more than one argument
                     if ( functions.indexOf(key) >= 0 ) {
                      
                         newobj[key] = function(target) {
@@ -265,15 +271,20 @@
                         };
 
                     } else {
-                        newobj[key] = is[key].apply(is, args);
+
+                        // lazy initialization, only calculate the result when you need it, instead of doing all calculations beforehand and saving the result
+                        Object.defineProperty(newobj, key,{
+                            get: function(){
+                               return is[key].apply(is, args);
+                            }
+                        });
+
                     }
 
                 } else {
                     newobj[key] = is[key];
                 }
             });
-
-            
 
             newobj.a = newobj;
             newobj.an = newobj;
