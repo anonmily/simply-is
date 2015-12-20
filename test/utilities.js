@@ -84,12 +84,20 @@ describe('is.equal',function(){
 });
 
 describe('is.sameType',function(){
-	it('is.sameType({a: 1, b: "hello", c: new Date(), d: function(){ return "hello" }}, {a: "number", b: "string"})',function(done){
+	it('is.sameType({a: 1, b: "hello", c: new Date(), d: function(){ return "hello" }}, {a: "number", b: "string", c: "date", d: "function" })',function(done){
 		is.sameType({a: 1, b: "hello", c: new Date(), d: function(){ return "hello" }}, {a: "number", b: "string", c: "date", d: "function" })		.should.equal(true);
 		done();
 	});
-	it('is.sameType({a: 1, b: "hello"}, {a: "number", b: "string"})',function(done){
-		is.sameType({a: 1, b: "hello"}, {a: "number", b: "string"})		.should.equal(true);
+	it('is.sameType({a: 1, b: "hello", c: 1234, d: "I should be a function" }, {a: "number", b: "string", c: "date", d: "function" })',function(done){
+		is.sameType({a: 1, b: "hello", c: 1234, d: "I should be a function"}, {a: "number", b: "string", c: "date", d: "function" })		.should.equal(false);
+		done();
+	});
+	it('is.sameType({a: 1, b: "hello", c: "unrestrained property"}, {a: "number", b: "string"})',function(done){
+		is.sameType({a: 1, b: "hello", c: "unrestrained property"}, {a: "number", b: "string"})		.should.equal(true);
+		done();
+	});
+	it('is({a: 1, b: "hello"}).sameType({a: "number", b: "string"})',function(done){
+		is({a: 1, b: "hello"}).sameType({a: "number", b: "string"})		.should.equal(true);
 		done();
 	});
 });

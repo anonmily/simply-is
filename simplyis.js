@@ -209,11 +209,15 @@
                 return type(x).is('regexp');
             },
             is_sameType: function(obj, typecompare){
+                var check = this;
                 var result = true;
                 forIn(obj, function(val,key){
-                    if( !type(val).is( typecompare[key].toLowerCase() ) ){
-                        result = false;
-                        return false;
+                    // if the type comparison object doesn't have the key, don't restrain/check it
+                    if( check.is_defined(typecompare[key]) ){
+                        if( !type(val).is( typecompare[key].toLowerCase() ) ){
+                            result = false;
+                            return false;
+                        }
                     }
                 });
                 return result;
@@ -281,7 +285,7 @@
             }
 
             // these functions need more than one argument
-            var functions = ['equal', 'inside', 'inArray', 'inObject', 'instanceOf', 'siblingOf'];
+            var functions = ['equal', 'inside', 'inArray', 'inObject', 'instanceOf', 'sameType', 'siblingOf'];
 
             // Go through all properties of the is object
             forIn(is, function(value, key) {
