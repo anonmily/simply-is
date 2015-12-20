@@ -55,11 +55,11 @@ The script is available as a global module as well as an AMD module. As a global
 	is.argument 	( (function(){ return arguments; })(1,2,3) )
 	is.array 		([1,2,3])
 	is.boolean 		(1==1)
-	is.date 			(new Date())
+	is.date 		(new Date())
 	is.defined 		(1)
 	is.function 	(function(){return 'hi'})
-	is.json 			('[{"key":"somevalue"}]')
-	is.null 			(Null)
+	is.json 		('[{"key":"somevalue"}]')
+	is.null 		(Null)
 	is.number 		(1)
 	is.object 		({})
 	is.regexp 		(/abc/)
@@ -92,17 +92,17 @@ The script is available as a global module as well as an AMD module. As a global
 
 ## Numbers
 	is.number		(1)
-	is.nan				(NaN)
+	is.nan			(NaN)
 	is.infinite		(Infinity)
-	is.even				(2)
-	is.odd				(3)
+	is.even			(2)
+	is.odd			(3)
 	is.integer 		(10)
 	is.decimal 		(10.5)
 
 ## Booleans
 	is.boolean  	(true)
-	is.true				(1==1)
-	is.false			(1==2)
+	is.true			(1==1)
+	is.false		(1==2)
 	
 ---
 ## TODO
