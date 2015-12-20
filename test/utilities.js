@@ -84,12 +84,12 @@ describe('is.equal',function(){
 });
 
 describe('is.sameType',function(){
-	it('is.sameType({a: 1, b: "hello"}, {a: Number, b: String})',function(done){
-		is.sameType({a: 1, b: "hello"}, {a: Number, b: String})		.should.equal(true);
+	it('is.sameType({a: 1, b: "hello", c: new Date(), d: function(){ return "hello" }}, {a: "number", b: "string"})',function(done){
+		is.sameType({a: 1, b: "hello", c: new Date(), d: function(){ return "hello" }}, {a: "number", b: "string", c: "date", d: "function" })		.should.equal(true);
 		done();
 	});
-	it('is.sameType({a: 1, b: "hello"}, {a: Number, b: String})',function(done){
-		is.sameType({a: 1, b: "hello"}, {a: Number, b: String})		.should.equal(true);
+	it('is.sameType({a: 1, b: "hello"}, {a: "number", b: "string"})',function(done){
+		is.sameType({a: 1, b: "hello"}, {a: "number", b: "string"})		.should.equal(true);
 		done();
 	});
 });

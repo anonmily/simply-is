@@ -69,6 +69,19 @@ The script is available as a global module as well as an AMD module. As a global
 
 ## Utility
 	is.empty		({}) 	//true for {}, [], 0, "", null, undefined, false
+	is.equal 		( {a: 1, b: "hello"}, {b:"hello", a:1} )
+	is.sameType 	({	
+						a: 1, 
+						b: "hello", 
+						c: new Date(), 
+						d: function(){ return "hello" }
+					 }, 
+					 {
+					 	a: "number", 
+					 	b: "string", 
+					 	c: "date", 
+					 	d: "function" }
+					)
 
 	is.inArray 		('a',['a','b','c'])
 

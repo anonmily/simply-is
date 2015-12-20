@@ -208,6 +208,16 @@
             is_regexp: function(x) {
                 return type(x).is('regexp');
             },
+            is_sameType: function(obj, typecompare){
+                var result = true;
+                forIn(obj, function(val,key){
+                    if( !type(val).is( typecompare[key].toLowerCase() ) ){
+                        result = false;
+                        return false;
+                    }
+                });
+                return result;
+            },
             is_string: function(x) {
                 return type(x).is('string');
             },
