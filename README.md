@@ -103,6 +103,13 @@ The script is available as a global module as well as an AMD module. As a global
 	is.boolean  	(true)
 	is.true			(1==1)
 	is.false		(1==2)
+
+## Patterns
+	is.email 		('test@test.com')
+	is.phone 		('626-123-4567')
+	is.alpha 		('abcdefghij')
+	is.numeric 		('123455')
+	is.alphanumeric ('test12345')
 	
 ---
 ## TODO
@@ -118,3 +125,4 @@ The script is available as a global module as well as an AMD module. As a global
 |---------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | _2.4.7_   | Used getter functions for isfunc to improve performance. The result of the comparison will only run when the result is needed/requested rather than stored in a static property. |
 | _2.5.5_   | Added in is.equal and is.sameType                                                                                                                                                |
+| _2.5.6_   | Added is.email, is.phone, is.alpha, is.numeric, is.alphanumeric                                                                                                                                               |

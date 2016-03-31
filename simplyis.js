@@ -51,6 +51,14 @@
 
     }
 
+    var REGEXP = {
+        EMAIL: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+        ALPHANUMERIC: /^[a-zA-Z0-9]*$/,
+        ALPHA: /^[a-zA-Z ]*$/,
+        NUMERIC: /^[0-9]*$/,
+        PHONE: /^[0-9-()+. ]*$/
+    }
+
     var simplyIs = (function() {
         // Private
         var check = {
@@ -69,6 +77,12 @@
                     return this['is_' + testfor].apply(this, args);
                 }
             },
+            is_alpha: function(x){
+                return REGEXP.ALPHA.test(String(x));
+            },
+            is_alphanumeric: function(x){
+                return REGEXP.ALPHANUMERIC.test(String(x));
+            },
             is_argument: function(x) {
                 return type(x).is('arguments');
             },
@@ -86,6 +100,9 @@
             },
             is_defined: function(x) {
                 return !this.is_undefined(x);
+            },
+            is_email: function(x){
+               return REGEXP.EMAIL.test(String(x));
             },
             is_empty: function(x) {
                 if (this.is_undefined(x) || this.is_null(x)) {
@@ -196,6 +213,9 @@
             is_null: function(x) {
                 return type(x).is('null');
             },
+            is_numeric: function(x){
+                return REGEXP.NUMERIC.test(String(x));
+            },
             is_number: function(x) {
                 return type(x).is('number');
             },
@@ -204,6 +224,9 @@
             },
             is_odd: function(x) {
                 return this.is_number(x) && !this.is_infinite(x) && !this.is_nan(x) && x % 2 !== 0;
+            },
+            is_phone: function(x){
+                return REGEXP.PHONE.test(String(x)) && x.length >= 9;
             },
             is_regexp: function(x) {
                 return type(x).is('regexp');
