@@ -98,6 +98,9 @@ The script is available as a global module as well as an AMD module. As a global
 	is.odd			(3)
 	is.integer 		(10)
 	is.decimal 		(10.5)
+	is.numberValid 	(Infinity) //returns false for Infinity, -Infinity, NaN, and non-numbers
+	is.numberInvalid (NaN) //true. opposite of is.numberValid
+
 
 ## Booleans
 	is.boolean  	(true)
@@ -126,3 +129,4 @@ The script is available as a global module as well as an AMD module. As a global
 | _2.4.7_   | Used getter functions for isfunc to improve performance. The result of the comparison will only run when the result is needed/requested rather than stored in a static property. |
 | _2.5.5_   | Added in is.equal and is.sameType                                                                                                                                                |
 | _2.5.6_   | Added is.email, is.phone, is.alpha, is.numeric, is.alphanumeric                                                                                                                                               |
+| _2.5.7_   | Added is.numberValid and is.numberInvalid                                                                                                                                             |

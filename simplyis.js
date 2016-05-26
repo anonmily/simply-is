@@ -219,6 +219,12 @@
             is_number: function(x) {
                 return type(x).is('number');
             },
+            is_numberInvalid: function(x) {
+                return this.is_nan(x) || this.is_infinite(x) || !this.is_number(x)
+            },
+            is_numberValid: function(x){
+                return !this.is_numberInvalid(x);
+            },
             is_object: function(x) {
                 return type(x).is('object');
             },
@@ -253,8 +259,7 @@
             },
             is_undefined: function(x) {
                 return type(x).is('undefined');
-            },
-
+            }
         };
 
         // Reassigning all methods of the check object that starts with is_ to the is object
