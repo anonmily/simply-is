@@ -208,7 +208,7 @@
                 return false;
             },
             is_nan: function(x) {
-                return this.is_number(x) && Number.isNaN(x);
+                return this.is_number(x) && isNaN(x);
             },
             is_null: function(x) {
                 return type(x).is('null');
